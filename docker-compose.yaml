@@ -5,25 +5,25 @@ services:
     container_name: nginx
     build:
       context: .
-      dockerfile: nginx/Dockerfile
+      dockerfile: docker/nginx/Dockerfile
     ports:
       - "80:80"
     networks:
       - internal
     volumes:
-      - ./data/:/var/www/html
-      - ./logs/nginx:/var/log/nginx
+      - ./public/:/var/www/html
+      - ./docker/logs/nginx:/var/log/nginx
 
   php:
     container_name: php
     build:
       context: .
-      dockerfile: php/Dockerfile
+      dockerfile: docker/php/Dockerfile
     networks:
       - internal
     volumes:
-      - ./data/:/var/www/html/
-      - ./logs/php.log:/var/log/fpm-php.www.log
+      - ./public/:/var/www/html/
+      - ./docker/logs/php.log:/var/log/fpm-php.www.log
 
 networks:
   internal:
