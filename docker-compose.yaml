@@ -24,6 +24,7 @@ services:
     volumes:
       - ./:/var/www/html/
       - ./docker/logs/php.log:/var/log/fpm-php.www.log
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
 
 networks:
   internal:
