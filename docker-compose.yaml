@@ -8,24 +8,31 @@ services:
       dockerfile: docker/nginx/Dockerfile
     ports:
       - "80:80"
-    networks:
-      - internal
+    depends_on:
+      - php
     volumes:
       - ./:/var/www/html
       - ./docker/logs/nginx:/var/log/nginx
+
+  db:
+    container_name: db
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: init
+    ports:
+      - '15432:5432'
 
   php:
     container_name: php
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    networks:
-      - internal
+    depends_on:
+      - db
     volumes:
       - ./:/var/www/html/
       - ./docker/logs/php.log:/var/log/fpm-php.www.log
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
-
-networks:
-  internal:
-    driver: bridge
