@@ -1,20 +1,26 @@
 FROM php:8.1-fpm
 
 # Install the necessary system packages
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y postgresql-client \
     wget \
     git \
     libicu-dev \
     libzip-dev \
+    libpq-dev \
     zip \
     unzip
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
+#RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
+
 # Install PHP extensions
 RUN docker-php-ext-install \
     intl \
+    pdo \
+    pdo_pgsql \
+    pgsql \
     opcache \
     zip
 
