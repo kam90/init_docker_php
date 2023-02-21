@@ -1,5 +1,6 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+#web:
+#    resource: 'routes/web.yaml'
+
+api:
+    resource: 'routes/api.yaml'
+    prefix: api
