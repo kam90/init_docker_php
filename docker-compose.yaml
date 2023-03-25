@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   nginx:
-    container_name: nginx
+    container_name: ${APP_NAME}_nginx
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
@@ -15,7 +15,7 @@ services:
       - ./docker/logs/nginx:/var/log/nginx
 
   db:
-    container_name: db
+    container_name: ${APP_NAME}_db
     image: postgres:15
     restart: always
     environment:
@@ -26,7 +26,7 @@ services:
       - '15432:5432'
 
   php:
-    container_name: php
+    container_name: ${APP_NAME}_php
     build:
       context: .
       dockerfile: docker/php/Dockerfile
