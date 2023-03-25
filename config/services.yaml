@@ -17,8 +17,15 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/Entity/'
             - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\PostModule\Application\Command\:
+        resource: '../src/PostModule/Application/Command/*Handler.php'
+        tags: [ messenger.message_handler ]
+
+    App\PostModule\Application\Query\:
+        resource: '../src/PostModule/Application/Query/*Handler.php'
+        tags: [ messenger.message_handler ]
