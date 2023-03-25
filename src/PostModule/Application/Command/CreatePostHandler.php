@@ -6,6 +6,6 @@ class CreatePostHandler
 {
     public function __invoke(CreatePost $command):void
     {
-        dd($command);
+        dd('Create post');
     }
 }

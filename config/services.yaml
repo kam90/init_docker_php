@@ -25,3 +25,7 @@ services:
     App\PostModule\Application\Command\:
         resource: '../src/PostModule/Application/Command/*Handler.php'
         tags: [ messenger.message_handler ]
+
+    App\PostModule\Application\Query\:
+        resource: '../src/PostModule/Application/Query/*Handler.php'
+        tags: [ messenger.message_handler ]

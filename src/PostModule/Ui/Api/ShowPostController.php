@@ -2,30 +2,22 @@
 
 namespace App\PostModule\Ui\Api;
 
-use App\PostModule\Domain\Post;
+use App\PostModule\Application\Query\QueryBus;
+use App\PostModule\Application\Query\GetPost;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Uid\Uuid;
 
 class ShowPostController extends AbstractController
 {
-    public function __construct()
-    {
+    public function __construct(
+        private readonly QueryBus $queryBus
+    ) {
     }
 
     public function __invoke(Request $request, $id): JsonResponse
     {
-        $post = new Post(Uuid::v4(), 'Title');
-        $data = [
-            'id' => $post->getId(),
-            'title' => $post->getTitle()
-        ];
-
-        return new JsonResponse(
-            [
-                'data' => $data
-            ]
-        );
+        $data = $this->queryBus->query(new GetPost());
+        return $this->json($data);
     }
 }
